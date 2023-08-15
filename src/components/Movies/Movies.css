@@ -1,0 +1,20 @@
+.movies {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  width: 90%;
+  max-width: 1140px;
+}
+
+@media screen and (max-width: 768px) {
+  .movies {
+    width: 92.187%;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .movies {
+    width: 93.75%;
+  }
+}

@@ -1,0 +1,122 @@
+.about {
+  width: 90%;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding-top: 10px;
+}
+
+.about__description {
+  display: flex;
+  gap: 3.5%;
+}
+
+.about__subtitle {
+  color: #000;
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.8px;
+  padding: 70px 0 26px 0;
+  margin: 0;
+}
+
+.about__term {
+  margin-top: 10px;
+  margin-bottom: 110px;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: repeat(2, 36px);
+}
+
+.about__one-week {
+  margin: 0;
+  color: #000;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  background: #2BE080;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.about__four-week {
+  color: #000;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  background: #F2F2F2;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about__dev {
+  color: #A0A0A0;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 121.429%;
+}
+
+@media screen and (max-width: 768px) {
+  .about {
+  padding-top: 0;
+  max-width: 87%;
+}
+
+  .about__description {
+    gap: 4.5%;
+  }
+
+  .about__term {
+    margin-bottom: 86px;
+    margin-top: 5px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .about {
+    max-width: 88.75%;
+    padding-top: 0;
+  }
+
+  .about__description {
+    flex-direction: column;
+    gap: 56px;
+    margin-top: 60px;
+  }
+
+  .about__subtitle {
+    font-size: 18px;
+    letter-spacing: -0.72px;
+    padding: 0 0 16px 0;
+  }
+
+  .about__term {
+    grid-template-columns: 1fr 1.86fr;
+    grid-template-rows: repeat(2, 35px);
+    margin-top: 60px;
+    margin-bottom: 60px;
+  }
+
+  .about__dev {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: normal;
+  }
+}
+

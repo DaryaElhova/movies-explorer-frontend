@@ -1,0 +1,140 @@
+.about-me {
+  width: 90%;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding-top: 10px;
+}
+
+.about-me__content {
+  display: flex;
+  margin-top: 66px;
+}
+
+.about-me__info {
+  margin-right: 23.68%;
+  width: 52.63%;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-me__name {
+  color: #000;
+  font-family: 'Inter', sans-serif;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 116%;
+  letter-spacing: -2px;
+  margin: 0;
+  padding: 0;
+}
+
+.about-me__profession {
+  color: #000;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 111.111%;
+  margin: 0;
+  padding: 18px 0 26px 0;
+}
+
+.about-me__link {
+  text-decoration: none;
+  color: #000;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.about-me__link:hover {
+  opacity: 0.7;
+  transition: opacity 0.5s ease;
+}
+
+.about-me__photo {
+  width: 310px;
+  height: 327px;
+  object-fit: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  overflow: hidden;
+  background-image: url('../../images/me.jpg');
+}
+
+.about-me__story {
+  color: #000;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 157.143%;
+  margin: 0 0 auto 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .about-me {
+    max-width: 87%;
+    padding-top: 0;
+  }
+
+  .about-me__name {
+    font-size: 40px;
+    line-height: 100%;
+    letter-spacing: -1.6px;
+
+  }
+
+  .about-me__profession {
+    font-size: 12px;
+    line-height: 150%;
+    padding: 16px 0 20px 0;
+  }
+
+  .about-me__content {
+    margin-top: 60px;
+  }
+
+  .about-me__photo {
+    width: 255px;
+    height: 307px;
+  }
+
+  .about-me__info {
+    margin-right: 7.485%;
+    width: 54.49%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .about-me {
+    max-width: 91.25%;
+  }
+
+  .about-me__content {
+    flex-direction: column-reverse;
+    gap: 40px;
+  }
+
+  .about-me__story {
+    font-size: 11px;
+    line-height: 145.455%;
+    padding-bottom: 40px;
+  }
+
+  .about-me__info {
+    width: 100%;
+  }
+
+  .about-me__photo {
+    width: 292px;
+    max-width: 100%;
+    height: 352px;
+    margin: 0 auto;
+  }
+}

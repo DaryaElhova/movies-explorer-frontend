@@ -1,0 +1,143 @@
+.form {
+  width: 30.937%;
+  max-width: 396px;
+  margin: 70px auto 70px auto;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.form__title {
+  padding: 0;
+  margin: 40px 0;
+  color: #000;
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.form__auth {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.form__label {
+  color: #A0A0A0;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+
+.form__input{
+  border: none;
+  border-radius: 8px;
+  background: #F9F9F9;
+  padding: 15px;
+  margin: 0 0 14px 0;
+}
+
+.form__input-err{
+  color: #EE3465;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding: 0;
+  margin: 0;
+}
+
+.form__button {
+  margin: auto 0 0 0;
+  border-radius: 3px;
+  background: #FF6838;
+  color: #FFF;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  padding: 13px 0 15px 0;
+  border: none;
+  cursor: pointer;
+}
+
+.form__button:hover {
+  opacity: 0.8;
+  transition: opacity 0.5s ease;
+}
+
+.form__navigate {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  gap: 6px;
+  width: 100%;
+}
+
+.form__text {
+  color: #A0A0A0;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding: 16px 0 0 0;
+  margin: 0;
+}
+
+.form__link {
+  text-decoration: none;
+  color: #FF6838;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding: 16px 0 0 0;
+}
+
+@media screen and (max-width: 900px) {
+  .form {
+    width: 51.56%;
+    margin-top: 232px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .form {
+    width: 81.25%;
+    margin-top: 56px;
+    margin-bottom: 30px;
+    align-items: center;
+  }
+
+  .form__title {
+    margin: 50px auto 80px auto;
+  }
+
+  .form__button {
+    font-size: 12px;
+  }
+
+  .form__link {
+    font-size: 12px;
+  }
+
+  .form__text {
+    font-size: 12px;
+  }
+}
