@@ -35,7 +35,7 @@ export default function NavMenu({ isOpen, onClose }) {
           <li className="nav-menu__item">
             <a className="nav-menu__link" href="/">Главная</a>
           </li>
-          <li className="nav-menu__item nav-menu__item_underlined">
+          <li className="nav-menu__item">
             <a className="nav-menu__link" href="/movies">Фильмы</a>
           </li>
           <li className="nav-menu__item">

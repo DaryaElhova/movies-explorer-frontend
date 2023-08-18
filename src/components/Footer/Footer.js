@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 
 export default function Footer() {
   const location = useLocation();
-  const hideFooterPaths = ["/signin", "/signup", "/not-found"];
+  const hideFooterPaths = ["/signin", "/signup", "/not-found", "/profile"];
   // Проверка, нужно ли скрывать футер для текущего пути
   const shouldHideFooter = hideFooterPaths.includes(location.pathname);
   // Если shouldHideFooter равно true, то не отображаем футер

@@ -1,7 +1,5 @@
 import React from 'react';
 import './App.css';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
@@ -19,7 +17,7 @@ import { Route, Routes } from 'react-router-dom';
 
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   function handleMenuOpen() {
@@ -32,34 +30,21 @@ function App() {
 
   return (
     <div className="page">
-      <Header
-        isLoggedIn={ isLoggedIn }
-        onOpenMenu={ handleMenuOpen }/>
       <Routes>
         <Route path="/" element={<Main />}/>
         <Route 
           path="/movies"
-          element={
-            <ProtectedRoute
-              isLoggedIn={isLoggedIn}
-              component={Movies}
-               />
-          }/>
+          element={<Movies isLoggedIn={true} onOpenMenu={ handleMenuOpen }/>} />
+
         <Route
           path="/saved-movies"
-          element={
-            <ProtectedRoute 
-            isLoggedIn={isLoggedIn}
-            component={SavedMovies}
+          element={<SavedMovies isLoggedIn={ true } onOpenMenu={ handleMenuOpen }/>}
             />
-          }/>
+
         <Route
           path="/profile"
-          element={
-            <ProtectedRoute 
-            isLoggedIn={isLoggedIn}
-            component={Profile} />
-          }/>
+          element={<Profile />} />
+
           <Route
             path="/signin"
             element={<Login />} />
@@ -69,9 +54,6 @@ function App() {
           <Route
             path="/not-found"
             element={<NotFound />} />
-          {/* <Route
-            path="/menu"
-            element={<NavMenu />} /> */}
       </Routes>
       <Footer />
       <NavMenu isOpen={isMenuOpen} onClose={closeMenu} />

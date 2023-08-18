@@ -1,8 +1,11 @@
 import React from "react";
+import Header from "../Header/Header";
 
 
-export default function Profile() {
+export default function Profile(isLoggedIn) {
   return (
+    <>
+    <Header isLoggedIn={ isLoggedIn} />
     <div className="profile">
       <form name="profile__form" className="profile__form">
         <h1 className="profile__title">Привет, Виталий!</h1>
@@ -38,5 +41,6 @@ export default function Profile() {
       </div>
       </form>
     </div>
+    </>
   )
 }

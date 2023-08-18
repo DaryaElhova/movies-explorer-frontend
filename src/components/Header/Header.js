@@ -1,16 +1,8 @@
 import logo from "../../images/logo.svg";
 import iconProfile from "../../images/icon-profile.svg"
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Header(props) {
-  const location = useLocation();
-
-  const hideHeaderPaths = ["/signin", "/signup", "/not-found"];
-  const shouldHideHeader = hideHeaderPaths.includes(location.pathname);
-  if (shouldHideHeader) {
-    return null;
-  }
-
   return(
     <header className={`header ${props.isLoggedIn === false ? 'header_unauthorized' : ''}`}>
       {props.isLoggedIn ? (

@@ -7,7 +7,7 @@
 
 .portfolio__title {
   color: #A0A0A0;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
@@ -25,9 +25,11 @@
 }
 
 .portfolio__link {
+  display: flex;
+  justify-content: space-between;
   text-decoration: none;
   color: #000;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-size: 30px;
   font-style: normal;
   font-weight: 400;
@@ -43,8 +45,6 @@
 .portfolio__item {
   padding: 19px 0 20px 0;
   border-bottom: 1px solid #E8E8E8;
-  display: flex;
-  justify-content: space-between;
 }
 
 .portfolio__arrow {

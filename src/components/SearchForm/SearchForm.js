@@ -5,7 +5,7 @@ export default function SearchForm() {
     <section className="search">
       <form className="search__form">
         <div className="search__container">
-          <img className="search__icon" src={icon} alt="search"/>
+          <img className="search__icon" src={icon} alt="искать"/>
           <input className="search__input" placeholder="Фильм"></input>
           <button className="search__button" title="найти"></button>
         </div>

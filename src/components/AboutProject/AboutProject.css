@@ -12,7 +12,7 @@
 
 .about__subtitle {
   color: #000;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
@@ -24,7 +24,7 @@
 
 .about__term {
   margin-top: 10px;
-  margin-bottom: 110px;
+  margin-bottom: 106px;
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: repeat(2, 36px);
@@ -34,7 +34,7 @@
   margin: 0;
   color: #000;
   text-align: center;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -49,7 +49,7 @@
 .about__four-week {
   color: #000;
   text-align: center;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -64,7 +64,7 @@
 .about__dev {
   color: #A0A0A0;
   text-align: center;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -113,7 +113,7 @@
   }
 
   .about__dev {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'Arial', sans-serif;
     font-size: 11px;
     font-weight: 400;
     line-height: normal;

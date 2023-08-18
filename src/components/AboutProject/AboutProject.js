@@ -1,6 +1,6 @@
 export default function AboutProject() {
   return(
-    <section className="about">
+    <section className="about" id="about">
       <h2 className="section__title">О проекте</h2>
       <div className="about__description">
         <div className="about__project">

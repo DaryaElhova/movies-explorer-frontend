@@ -1,17 +1,24 @@
 .form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto 0;
+}
+
+.form__container {
   width: 30.937%;
   max-width: 396px;
-  margin: 70px auto 70px auto;
+  margin: auto;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 560px;
 }
 
 .form__title {
   padding: 0;
   margin: 40px 0;
   color: #000;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 500;
@@ -29,7 +36,7 @@
 
 .form__label {
   color: #A0A0A0;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-size: 10px;
   font-style: normal;
   font-weight: 400;
@@ -48,7 +55,7 @@
 
 .form__input-err{
   color: #EE3465;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-size: 10px;
   font-style: normal;
   font-weight: 400;
@@ -63,7 +70,7 @@
   background: #FF6838;
   color: #FFF;
   text-align: center;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -89,7 +96,7 @@
 .form__text {
   color: #A0A0A0;
   text-align: center;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -102,7 +109,7 @@
   text-decoration: none;
   color: #FF6838;
   text-align: center;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -111,17 +118,16 @@
 }
 
 @media screen and (max-width: 900px) {
-  .form {
+  .form__container {
     width: 51.56%;
-    margin-top: 232px;
   }
 }
 
 @media screen and (max-width: 400px) {
-  .form {
+  .form__container {
     width: 81.25%;
-    margin-top: 56px;
-    margin-bottom: 30px;
+    height: 694px;
+    padding-top: 22px;
     align-items: center;
   }
 

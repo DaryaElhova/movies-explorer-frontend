@@ -15,7 +15,7 @@
   padding: 74px 0 107px 0;
   color: #000;
   text-align: center;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 500;
@@ -29,7 +29,7 @@
 
 .profile__label {
   color: #000;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-size: 11px;
   font-style: normal;
   font-weight: 500;
@@ -45,7 +45,7 @@
   padding: 0;
   color: #000;
   text-align: right;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-size: 11px;
   font-style: normal;
   font-weight: 400;
@@ -81,7 +81,7 @@
 
 .profile__btn {
   text-align: center;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
@@ -107,7 +107,7 @@
 @media screen and (max-width: 768px) {
   .profile__form {
     width: 53.385%;
-    min-height: 100vh;
+    height: 100vh;
   }
 
   .profile__title {
@@ -124,6 +124,8 @@
 @media screen and (max-width: 320px) {
   .profile__form {
     width: 81.25%;
+    justify-content: space-between;
+    height: 100%;
   }
 
   .profile__title {
@@ -132,7 +134,7 @@
   }
 
   .profile__btns {
-    margin-bottom: 80px;
+    margin-bottom: 40px;
   }
 
   .profile__btn {
