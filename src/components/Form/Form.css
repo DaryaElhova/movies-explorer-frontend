@@ -1,17 +1,15 @@
 .form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: auto 0;
-}
-
-.form__container {
-  width: 30.937%;
-  max-width: 396px;
-  margin: auto;
+  padding-top: 70px;
   display: flex;
   flex-direction: column;
-  height: 560px;
+  margin: 0 auto;
+  width: 30.937%;
+  max-width: 396px;
+}
+
+.form__auth {
+  display: flex;
+  flex-direction: column;
 }
 
 .form__title {
@@ -25,15 +23,6 @@
   line-height: normal;
 }
 
-.form__auth {
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-}
-
 .form__label {
   color: #A0A0A0;
   font-family: 'Inter', 'Arial', sans-serif;
@@ -41,16 +30,14 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  margin: 0 0 10px 0;
-  padding: 0;
+  padding: 0 0 10px 0;
 }
 
-.form__input{
+.form__input {
   border: none;
   border-radius: 8px;
   background: #F9F9F9;
   padding: 15px;
-  margin: 0 0 14px 0;
 }
 
 .form__input-err{
@@ -60,12 +47,12 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  padding: 0;
+  padding-top: 5px;
   margin: 0;
+  min-height: 12px;
 }
 
 .form__button {
-  margin: auto 0 0 0;
   border-radius: 3px;
   background: #FF6838;
   color: #FFF;
@@ -85,12 +72,20 @@
   transition: opacity 0.5s ease;
 }
 
+.form__button_register {
+  margin-top: 69px
+}
+
+.form__button_login {
+  margin-top: 158px;
+}
+
 .form__navigate {
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
-  gap: 6px;
-  width: 100%;
+ display: flex;
+ gap: 6px;
+ align-items: baseline;
+ justify-content: center;
+ margin: 16px 0 70px 0;
 }
 
 .form__text {
@@ -101,7 +96,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  padding: 16px 0 0 0;
+  padding: 0;
   margin: 0;
 }
 
@@ -114,33 +109,52 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  padding: 16px 0 0 0;
+  padding: 0;
+  cursor: pointer;
 }
 
-@media screen and (max-width: 900px) {
-  .form__container {
+.form__link:hover {
+  opacity: 0.8;
+  transition: opacity 0.5s ease;
+}
+
+@media screen and (max-width: 768px) {
+  .form {
     width: 51.56%;
+    padding-top: 232px;
+  }
+
+  .form__navigate {
+    margin-bottom: 232px;
   }
 }
 
 @media screen and (max-width: 400px) {
-  .form__container {
+  .form {
     width: 81.25%;
-    height: 694px;
-    padding-top: 22px;
+    padding-top: 56px;
     align-items: center;
   }
 
+  .form__auth {
+    width: 100%;
+  }
+
   .form__title {
-    margin: 50px auto 80px auto;
+    margin-top: 50px;
+    margin-bottom: 80px;
   }
 
-  .form__button {
-    font-size: 12px;
+  .form__button_register {
+    margin-top: 157px;
+    }
+
+  .form__button_login {
+    margin-top: 247px;
   }
 
-  .form__link {
-    font-size: 12px;
+  .form__navigate {
+    margin-bottom: 30px;
   }
 
   .form__text {

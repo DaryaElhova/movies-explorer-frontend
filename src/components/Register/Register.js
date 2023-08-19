@@ -20,6 +20,7 @@ export default function Register({ registerUser }) {
 
   return(
     <Form
+      name="register"
       title="Добро пожаловать!"
       button="Зарегистрироваться"
       text="Уже зарегистрированы?"
@@ -53,6 +54,5 @@ export default function Register({ registerUser }) {
                 placeholder="Пароль"/>
           <span className="form__input-err">Что-то пошло не так...</span>
       </Form>
-
   )
 }

@@ -3,7 +3,8 @@ import Form from "../Form/Form";
 
 export default function Login () {
   return(
-    <Form 
+    <Form
+      name="login"
       title="Рады видеть!"
       button="Войти"
       text="Ещё не зарегистрированы?"

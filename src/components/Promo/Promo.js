@@ -2,7 +2,7 @@ import promoPic from '../../images/promoPic.svg';
 
 export default function Promo() {
   return(
-    <div className="promo">
+    <section className="promo">
       <div className="promo__container">
         <a className='promo__link' href="#about">Узнать большe</a>
         <div className="promo__info">
@@ -11,6 +11,6 @@ export default function Promo() {
         </div>
         <img src={promoPic} alt="промо" className="promo__picture" />
       </div>
-    </div>
+    </section>
   )
 }

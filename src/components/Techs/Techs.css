@@ -27,11 +27,11 @@
 .techs__info {
   color: #000;
   text-align: center;
-  font-family: Inter;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 20px; /* 142.857% */
+  line-height: 142.857%;
   letter-spacing: -0.56px;
   padding: 26px 0 100px 0;
   width: 44%;
@@ -75,8 +75,11 @@
   }
 
   .techs__info {
-    max-width: 68.86%;
+    width: 68.86%;
     letter-spacing: -0.48px;
+    font-size: 12px;
+    padding-top: 22px;
+    padding-bottom: 83px;
   }
 
   .techs__list {
@@ -93,7 +96,7 @@
 
 @media screen and (max-width: 480px) {
   .techs__container {
-    max-width: 88.75%;
+    max-width: 91.25%;
   }
 
   .techs__subtitle {
@@ -104,15 +107,18 @@
   }
 
   .techs__info {
-    max-width: 100%;
-    margin: 0;
+    width: 100%;
+    padding-top: 24px;
+    padding-bottom: 50px;
+    font-size: 11px;
+    line-height: 145.455%;
+    letter-spacing: -0.44px;
   }
 
   .techs__list {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(4, 57px);
     max-width: 62.676%;
-    padding-top: 50px;
     margin-bottom: 70px;
   }
 }

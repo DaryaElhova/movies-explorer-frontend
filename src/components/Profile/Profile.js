@@ -4,9 +4,9 @@ import Header from "../Header/Header";
 
 export default function Profile(isLoggedIn) {
   return (
-    <>
+    <section className="profile">
     <Header isLoggedIn={ isLoggedIn} />
-    <div className="profile">
+    <div className="profile__container">
       <form name="profile__form" className="profile__form">
         <h1 className="profile__title">Привет, Виталий!</h1>
         <div className="profile__field">
@@ -41,6 +41,6 @@ export default function Profile(isLoggedIn) {
       </div>
       </form>
     </div>
-    </>
+    </section>
   )
 }

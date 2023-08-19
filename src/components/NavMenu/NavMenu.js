@@ -26,7 +26,7 @@ export default function NavMenu({ isOpen, onClose }) {
   };
 
   return(
-    <div
+    <nav
       className={`nav-menu ${isOpen ? "nav-menu_opened" : ""}`}
       onClick={handleOverlay}>
       <div className="nav-menu__container">
@@ -47,6 +47,6 @@ export default function NavMenu({ isOpen, onClose }) {
           </li>
         </ul>
       </div>
-    </div>
+    </nav>
   )
 }

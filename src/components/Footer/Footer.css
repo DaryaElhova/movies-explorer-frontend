@@ -63,7 +63,7 @@
 
 @media screen and (max-width: 768px) {
   .footer__container {
-    width: 87%;
+    width: 92.187%;
   }
 }
 
@@ -74,7 +74,7 @@
 
   .footer__text {
     font-size: 12px;
-    padding-top: 79px;
+    padding-top: 59px;
     padding-bottom: 21px;
   }
 

@@ -1,6 +1,5 @@
-.profile {
+.profile__container {
   width: 100%;
-  height: 100%;
 }
 
 .profile__form {
@@ -107,7 +106,6 @@
 @media screen and (max-width: 768px) {
   .profile__form {
     width: 53.385%;
-    height: 100vh;
   }
 
   .profile__title {
@@ -117,15 +115,13 @@
 
   .profile__btns {
     margin-bottom: 64px;
-    margin-top: auto;
+    margin-top: 194px;
   }
 }
 
 @media screen and (max-width: 320px) {
   .profile__form {
     width: 81.25%;
-    justify-content: space-between;
-    height: 100%;
   }
 
   .profile__title {
@@ -135,6 +131,7 @@
 
   .profile__btns {
     margin-bottom: 40px;
+    margin-top: 363px;
   }
 
   .profile__btn {

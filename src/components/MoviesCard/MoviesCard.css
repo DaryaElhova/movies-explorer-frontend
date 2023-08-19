@@ -20,6 +20,11 @@
   cursor: pointer;
 }
 
+.movies-card__save:hover {
+  opacity: 0.7;
+  transition: opacity 0.5s ease;
+}
+
 .movies-card__delete {
   background-image: url('../../images/btn-delete.svg');
   cursor: pointer;
