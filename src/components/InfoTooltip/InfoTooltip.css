@@ -1,0 +1,96 @@
+.infoTooltip {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+}
+
+.infoTooltip_opened {
+  visibility: visible;
+  opacity: 1;
+  transition: 0.5s ease;
+}
+
+.infoTooltip__container {
+  width:33.6%;
+  max-width: 430px;
+  display: flex;
+  flex-direction: column;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  padding: 34px 36px 37px 36px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.infoTooltip__title {
+  color: #A0A0A0;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 111.111%;
+  padding: 0 0 30px 0;
+  margin: 0;
+}
+
+.infoTooltip__close {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  background-image: url(../../images/btn-close.svg);
+  background-color: transparent;
+  cursor: pointer;
+  background-size: contain;
+  border: none;
+  width: 30px;
+  height: 30px;
+  background-size: contain;
+
+  }
+  
+  .infoTooltip__close:hover {
+    opacity: 0.6;
+    transition: opacity 1s ease;
+  }
+  
+  
+  @media screen and (max-width: 550px) {
+    .infoTooltip__close {
+      height: 20px;
+      width: 20px;
+      top: -36px;
+      right: 0;
+    }
+  }
+
+@media screen and (max-width: 1130px) {
+  .infoTooltip__container{
+    padding: 31px 33px 34px 33px;
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .infoTooltip__container{
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 730px) {
+  .infoTooltip__container{
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .infoTooltip__container{
+    width: 88.125%;
+    padding: 25px 22px;
+  }
+}

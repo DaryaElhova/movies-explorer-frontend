@@ -9,7 +9,7 @@ export default function Form(props) {
           <img className="header__logo" src={ logo } alt="логотип" />
         </Link>
         <h2 className="form__title">{props.title}</h2>
-        <form className="form__auth" name="formAuth">
+        <form className="form__auth" name="formAuth" onSubmit={props.onSubmit}>
           {props.children}
           <button type="submit" className={`form__button form__button_${props.name}`}>{props.button}</button>
         </form>

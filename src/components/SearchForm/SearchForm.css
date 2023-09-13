@@ -47,7 +47,7 @@
   line-height: normal;
   }
 
-  .search__label {
+  /* .search__label {
     display: flex;
     flex-direction: row-reverse;
     gap: 12px;
@@ -73,7 +73,7 @@
 
   .search__checkbox:checked + .search__checkbox-custom {
     background-image: url('../../images/filter-active.svg');
-  }
+  } */
 
   @media screen and (max-width: 768px) {
     .search__container {
