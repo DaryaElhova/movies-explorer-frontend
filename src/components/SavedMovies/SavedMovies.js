@@ -20,7 +20,6 @@ export default function SavedMovies({
   isShortMovieChecked,
   setIsShortMovieChecked
 }) {
-  console.log(isSearching);
   const handleSearchSubmit = (searchKeywords, isShortFilm) => {
     onSearch(searchKeywords, isShortFilm);
   }

@@ -52,12 +52,10 @@ function App() {
   // РEГИСТРАЦИЯ И АВТОРИЗАЦИЯ----------------
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
-    console.log(jwt);
 
     if (jwt) {
       Auth.checkToken(jwt)
         .then((res) => { 
-          console.log(res);
           if(res) {
             const userData = {
               name: res.name,
@@ -128,7 +126,6 @@ function App() {
         setSuccessMessage("Информация успешно обновлена!")
       })
       .catch(() => {
-        //console.log(`Возникла ошибка ${err}`)
         if ({"message":"Такой пользователь уже существует"}) {
           // Обработка ошибки 409 (конфликт)
           setErrorMessage("Пользователь с таким email уже существует.");
@@ -183,11 +180,8 @@ function App() {
   useEffect(() => {
     if (isSavedMoviesPage) {
       const storedSavedMovies = JSON.parse(localStorage.getItem('savedMovies'));
-      console.log(storedSavedMovies);
-
       if(storedSavedMovies) {
         setSavedMovies(storedSavedMovies);
-        console.log(savedMovies);
       }
       setSearchQuery('');
       setIsShortMovieChecked(false);
@@ -249,7 +243,6 @@ const handleSetSavedMovies = (newSavedMovies) => {
     } else {
       api.saveMovie(movie)
       .then((res) => {
-        console.log(res);
         setSavedMovies([...savedMovies, res]);//добавить к сущ.массиву
         localStorage.setItem('savedMovies', JSON.stringify([...savedMovies, res]));
       })
@@ -261,10 +254,8 @@ const handleSetSavedMovies = (newSavedMovies) => {
 
   //УДАЛЕНИЕ ФИЛЬМА ------------------------
   const handleDeleteMovie = (id) => {
-    console.log(id);
     api.deleteMovie(id)
     .then((res) => {
-      console.log(res);
       const updatedSavedMovies = savedMovies.filter((movie) => movie._id !== id);
       setSavedMovies(updatedSavedMovies);
       // обновить localStorage
