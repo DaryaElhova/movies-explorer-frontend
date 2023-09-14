@@ -23,7 +23,7 @@
 
 .profile__field {
   display: flex;
-  padding: 17px 0 16px 0;
+  padding: 17px 0 0 0;
 }
 
 .profile__label {
@@ -70,12 +70,23 @@
   margin: 0;
 }
 
+.profile__input-err {
+  color: #EE3465;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding-top: 5px;
+  margin: 0;
+  min-height: 12px;
+}
+
 .profile__btns {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 204px auto 70px auto;
-  gap: 16px;
+  margin: 187px auto 70px auto;
 }
 
 .profile__btn {
@@ -92,6 +103,12 @@
 
 .profile__btn-edit {
   color: #000;
+  margin-bottom: 16px;
+}
+
+.profile__btn-edit_disabled {
+  color: #C2C2C2;
+  cursor: auto;
 }
 
 .profile__btn-logout {

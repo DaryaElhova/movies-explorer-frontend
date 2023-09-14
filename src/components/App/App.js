@@ -46,7 +46,10 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [noResults, setNoResults] = useState(false);
 
-  // РКГИСТРАЦИЯ И АВТОРИЗАЦИЯ----------------
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
+  // РEГИСТРАЦИЯ И АВТОРИЗАЦИЯ----------------
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
     console.log(jwt);
@@ -81,41 +84,70 @@ function App() {
     Auth
       .registration(name, email, password)
       .then((res) => {
-        if(res.status === 409) {
-          throw new Error('Conflict');
+        if (res.status === 409) {
+          throw new Error("Конфликт");
         }
-      const { name, email } = res;
-      setCurrentUser(res);
-      console.log("Зарегистрированный пользователь:", name, email);
+        loginUser({email, password})
         })
-      .catch((err) => {
-        console.log(`Произошла ошибка ${err}`)
+      .catch(() => {
+
+        if ({"message":"Такой пользователь уже существует"}) {
+          // Обработка ошибки 409 (конфликт)
+          setErrorMessage("Пользователь с таким email уже существует.");
+        } else {
+          // Другие ошибки
+          setErrorMessage("При регистрации пользователя произошла ошибка");
+        }
       });
   };
 
   const loginUser = ({ email, password }) => {
     Auth.authorization(email, password)
       .then((res) => {
-        localStorage.setItem("jwt", res.token);
         setIsLoggedIn(true);
-        setCurrentUser(res);
+        localStorage.setItem("jwt", res.token);
         navigate("/movies", { replace: true });
       })
-      .catch((err) => {
-        console.log(`Произошла ошибка ${err}`)
+      .catch(() => {
+        if ({"message":"Неправильная почта или пароль"}) {
+          setErrorMessage(" Вы ввели неправильный логин или пароль.");
+        } else {
+          // Другие ошибки
+          setErrorMessage("При авторизации произошла ошибка. Токен не передан или передан не в том формате");
+        }
       });
   };
 
+  
+  // ОБНОВЛЕНИЕ ДАННЫХ ПОЛЬЗОВАТЕЛЯ------------
+  function handleUpdateUser(userData) {
+    api
+      .updateUserInfo(userData.name, userData.email)
+      .then((res) => {
+        setCurrentUser(res);
+        setSuccessMessage("Информация успешно обновлена!")
+      })
+      .catch(() => {
+        //console.log(`Возникла ошибка ${err}`)
+        if ({"message":"Такой пользователь уже существует"}) {
+          // Обработка ошибки 409 (конфликт)
+          setErrorMessage("Пользователь с таким email уже существует.");
+        } else {
+          // Другие ошибки
+          setErrorMessage("При регистрации пользователя произошла ошибка");
+        }
+      })
+  }
+
+
   // ВЫХОД ИЗ ПРОФИЛЯ
   const logOut = () => {
-    // localStorage.removeItem("jwt");
-    // localStorage.removeItem("searchQuery");
-    // localStorage.removeItem("isShortMovieChecked");
-    // localStorage.removeItem("searchResults");
-    localStorage.clear();
+    localStorage.removeItem("jwt");
+    localStorage.removeItem("searchQuery");
+    localStorage.removeItem("isShortMovieChecked");
+    localStorage.removeItem("searchResults");
     setIsLoggedIn(false);
     setCurrentUser({});
-    //setIsShortMovieChecked(false);
   }
 
   // текущий маршрут
@@ -271,18 +303,6 @@ const handleSetSavedMovies = (newSavedMovies) => {
     setIsSearching(true);
   }
 
-  // ОБНОВЛЕНИЕ ДАННЫХ ПОЛЬЗОВАТЕЛЯ------------
-  function handleUpdateUser(userData) {
-    api
-      .updateUserInfo(userData.name, userData.email)
-      .then((res) => {
-        setCurrentUser(res)
-      })
-      .catch((err) => {
-        console.log(`Возникла ошибка ${err}`)
-      })
-  }
-
 
   function handleMenuOpen() {
     setIsMenuOpen(true);
@@ -360,15 +380,17 @@ const handleSetSavedMovies = (newSavedMovies) => {
               component={ Profile }
               logOut={ logOut }
               onUpdateUser={ handleUpdateUser}
-              userData={userData}
+              userData={ userData }
+              errorMessage={ errorMessage }
+              successMessage={ successMessage }
             />} />
 
           <Route
             path="/signin"
-            element={<Login loginUser={loginUser}/>} />
+            element={<Login loginUser={loginUser} errorMessage={errorMessage}/> } />
           <Route
             path="/signup"
-            element={<Register registerUser={registerUser}/>} />
+            element={<Register registerUser={registerUser} errorMessage={errorMessage}/>} />
           <Route
             path="*"
             element={<NotFound />} />

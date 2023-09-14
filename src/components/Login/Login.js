@@ -1,20 +1,16 @@
 import React from "react";
 import Form from "../Form/Form";
 import useForm from "../../utils/hooks/useForm";
-import { useNavigate } from "react-router";
 
-export default function Login ({ loginUser }) {
-  const { form, handleChange } = useForm({
+export default function Login ({ loginUser, errorMessage }) {
+  const { form, handleChange, errors, isFormValid } = useForm({
     email: "",
     password: "",
   })
 
-  const navigate = useNavigate();
-
   const handleSubmit = (evt) => {
     evt.preventDefault();
     loginUser(form);
-    // navigate("/movies", { replace: true });
   }
 
   return(
@@ -26,6 +22,8 @@ export default function Login ({ loginUser }) {
       link="/signup"
       linkTitle = "Регистрация"
       onSubmit= {handleSubmit}
+      isFormValid={ isFormValid}
+      errorMessage={errorMessage}
     >
       <label className="form__label">E-mail</label>
           <input className="form__input"
@@ -37,7 +35,7 @@ export default function Login ({ loginUser }) {
                 required
                 value={ form.email || ""}
                 onChange={handleChange} />
-          <span className="form__input-err"></span>
+          <span className="form__input-err">{errors.email}</span>
 
         <label className="form__label">Пароль</label>
           <input className="form__input"
@@ -50,7 +48,7 @@ export default function Login ({ loginUser }) {
                 minLength={6}
                 placeholder="Пароль"
                 onChange={handleChange} />
-          <span className="form__input-err"></span>
+          <span className="form__input-err">{errors.password}</span>
     </Form>
   )
 }

@@ -1,39 +1,34 @@
 import React, { useEffect, useState, useContext } from "react";
 import Header from "../Header/Header";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import useForm from "../../utils/hooks/useForm";
 
+export default function Profile({
+  isLoggedIn,
+  logOut,
+  onUpdateUser,
+  userData,
+  errorMessage,
+  successMessage }) {
+  const { userName, userEmail } = userData;
 
-export default function Profile({ isLoggedIn, logOut, onUpdateUser, userData }) {
-  const { userName, userEmail} = userData;
-  const [name, setName] = useState(userData.name || "");
-  const [email, setEmail] = useState(userData.email || "");
-  const currentUser = useContext(CurrentUserContext);
-  console.log(currentUser);
-
-  
-  console.log(userData);
-
-  function handleNameChange(e){
-    setName(e.target.value);
-  }
-
-  function handlleEmailChange(e){
-    setEmail(e.target.value);
-  }
-
-  function handleSubmit(e){
-    e.preventDefault();
-
-    onUpdateUser({
-      name,
-      email,
-    })
-  }
+  const { form, handleChange, errors, isFormValid } = useForm({
+    name: userData.name || "",
+    email: userData.email || "",
+  });
 
   useEffect(() => {
-      setName(userName );
-      setEmail(userEmail);
-  }, [])
+    form.name = userData.name;
+    form.email = userData.email;
+  }, [userData]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onUpdateUser({
+      name: form.name,
+      email: form.email,
+    });
+  };
+
 
   return (
     <section className="profile">
@@ -48,34 +43,40 @@ export default function Profile({ isLoggedIn, logOut, onUpdateUser, userData }) 
           <label className="profile__label">Имя</label>
           <input
               name="name"
-              value={name}
+              value={form.name}
               className="profile__input"
               type="text"
               placeholder="Имя"
               minLength={2}
               maxLength={30}
-              onChange={ handleNameChange }
+              onChange={ handleChange }
               required>
             </input>
         </div>
+        <span className="profile__input-err">{errors.name}</span>
+
         <div className="profile__input-divider"></div>
         <div className="profile__field">
           <label className="profile__label">E&#8209;mail</label>
           <input
               name="email"
-              value={ email }
+              value={ form.email }
               className="profile__input"
               type="email"
               placeholder="Email"
               minLength={2}
-              onChange={ handlleEmailChange }
+              onChange={ handleChange }
               required>
             </input>
         </div>
+        <span className="profile__input-err">{errors.email}</span>
         <div className="profile__btns">
+
+        <div className="profile__input-err">{errorMessage || successMessage}</div>
           <button
-            className="profile__btn profile__btn-edit"
+            className={`profile__btn profile__btn-edit ${isFormValid ? '' : 'profile__btn-edit_disabled'}`}
             type="submit"
+            disabled={!isFormValid}
             >Редактировать</button>
           <button
             type="button"

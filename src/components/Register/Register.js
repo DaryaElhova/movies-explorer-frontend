@@ -1,21 +1,20 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import useForm from "../../utils/hooks/useForm";
 import Form from "../Form/Form";
 
-export default function Register({ registerUser }) {
-  const { form, handleChange } = useForm({
+export default function Register({ registerUser, errorMessage}) {
+
+  const { form, handleChange, errors, isFormValid } = useForm({
     name: "",
     email: "",
     password: "",
   });
-  
-  const navigate = useNavigate();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    registerUser(form);
-    navigate("/signin", { replace: true });
+    if(isFormValid) {
+      registerUser(form);
+    }
   }
 
   return(
@@ -26,7 +25,9 @@ export default function Register({ registerUser }) {
       text="Уже зарегистрированы?"
       link="/signin"
       linkTitle = "Войти"
-      onSubmit={handleSubmit} >
+      onSubmit={handleSubmit}
+      isFormValid={isFormValid}
+      errorMessage = { errorMessage } >
         <label className="form__label">Имя</label>
           <input className="form__input"
                 type="text"
@@ -38,7 +39,7 @@ export default function Register({ registerUser }) {
                 required
                 value={form.name || ""}
                 onChange={handleChange} />
-          <span className="form__input-err"></span>
+          <span className="form__input-err">{errors.name}</span>
 
         <label className="form__label">E-mail</label>
           <input className="form__input"
@@ -50,7 +51,7 @@ export default function Register({ registerUser }) {
                 required
                 value={form.email || ""}
                 onChange={handleChange} />
-          <span className="form__input-err"></span>
+          <span className="form__input-err">{errors.email}</span>
 
         <label className="form__label">Пароль</label>
           <input className="form__input"
@@ -63,7 +64,8 @@ export default function Register({ registerUser }) {
                 value={form.password || ""}
                 minLength={6}
                 onChange={handleChange}/>
-          <span className="form__input-err"></span>
-      </Form>
+          <span className="form__input-err">{errors.password}</span>
+    </Form>
+
   )
 }
