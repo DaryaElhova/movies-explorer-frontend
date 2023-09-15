@@ -1,4 +1,5 @@
 import React from 'react';
+import { Navigate } from 'react-router-dom';
 import './App.css';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
@@ -423,10 +424,10 @@ const handleSetSavedMovies = (newSavedMovies) => {
 
           <Route
             path="/signin"
-            element={<Login loginUser={loginUser} errorMessage={errorMessage}/> } />
+            element={isLoggedIn ? <Navigate to="/" /> : <Login loginUser={loginUser} errorMessage={errorMessage} />} />
           <Route
             path="/signup"
-            element={<Register registerUser={registerUser} errorMessage={errorMessage}/>} />
+            element={isLoggedIn ? <Navigate to="/" /> : <Register registerUser={registerUser} errorMessage={errorMessage} />} />
           <Route
             path="*"
             element={<NotFound />} />
