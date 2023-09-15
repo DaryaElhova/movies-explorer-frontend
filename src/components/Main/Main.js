@@ -9,7 +9,7 @@ import Portfolio from '../Portfolio/Portfolio';
 export default function Main(isLoggedIn) {
   return(
     <>
-    <Header isLoggedIn={!isLoggedIn} />
+    <Header isLoggedIn={isLoggedIn} />
     <main>
       <Promo />
       <AboutProject />

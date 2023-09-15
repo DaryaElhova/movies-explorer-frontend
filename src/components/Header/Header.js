@@ -1,10 +1,15 @@
 import logo from "../../images/logo.svg";
 import iconProfile from "../../images/icon-profile.svg"
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export default function Header(props) {
+  console.log(props.isLoggedIn)
+  const location = useLocation();
+  const headerClassName = `header ${props.isLoggedIn === false ? 'header_unauthorized' : ''} ${props.isLoggedIn && location.pathname === '/' ? 'header_blue' : '' }`;
+
   return(
-    <header className={`header ${props.isLoggedIn === false ? 'header_unauthorized' : ''}`}>
+    <header className={headerClassName}>
       {props.isLoggedIn ? (
         <nav className="header__content">
           <Link to="/">

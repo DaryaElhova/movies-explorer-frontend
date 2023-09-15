@@ -8,6 +8,10 @@
   background: #465DFF;
 }
 
+.header_blue {
+  background: #465DFF;
+}
+
 .header__content {
   display: flex;
   justify-content: space-between;
