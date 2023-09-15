@@ -22,11 +22,11 @@ export default function Movies({
   setIsShortMovieChecked,
   setSearchQuery,
   setSearchResults,
-  setIsSearching
+  setIsSearching,
+  searchQuery
   }) {
 
     const [restoredData, setRestoredData] = useState(false);
-
     useEffect(() => {
       // Восстановление данных из localStorage при монтировании компонента
       const savedSearchQuery = localStorage.getItem('searchQuery');
@@ -66,6 +66,8 @@ export default function Movies({
         onSearch={handleSearchSubmit}
         isShortMovieChecked={isShortMovieChecked}
         setIsShortMovieChecked={setIsShortMovieChecked}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
         />
       {isLoading ? (<Preloader />) : noResults? (<p>Ничего не найдено</p>) : (
         <MoviesCardList 

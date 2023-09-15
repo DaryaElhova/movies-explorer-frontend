@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://api.movies.elkhova.nomoreparties.co';
+export const BASE_URL = 'https://api.movies.elkhova.nomoreparties.co';
 
 const makeRequest = (url, method, body, token) => {
   const options = {

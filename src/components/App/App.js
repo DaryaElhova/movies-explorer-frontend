@@ -116,7 +116,6 @@ function App() {
       });
   };
 
-  
   // ОБНОВЛЕНИЕ ДАННЫХ ПОЛЬЗОВАТЕЛЯ------------
   function handleUpdateUser(userData) {
     api
@@ -164,6 +163,7 @@ function App() {
         setVisibleMovies(getMoviesPerPage());
       } else {
         moviesApi.getMovies()
+          setIsLoading(true)
           .then((movies) => {
             setMovies(movies);
             localStorage.setItem('movies', JSON.stringify(movies));
@@ -171,6 +171,9 @@ function App() {
           })
           .catch((err) => {
             console.log(`Произошла ошибка ${err}`)
+          })
+          .finally(() => {
+            setIsLoading(false);
           })
       }
     }
@@ -325,16 +328,17 @@ const handleSetSavedMovies = (newSavedMovies) => {
               onSaveMovie={handleSaveMovie}
               onDeleteMovie={ handleDeleteMovie}
               onSearch={ handleSearch}
-              isSearching={isSearching}
-              searchResults={searchResults}
               isLoading={isLoading}
               noResults={noResults}
               isSavedMoviesPage={ false }
-              isShortMovieChecked={isShortMovieChecked}
               setIsShortMovieChecked={setIsShortMovieChecked}
               setSearchQuery={setSearchQuery}
               setIsSearching={setIsSearching}
               setSearchResults={setSearchResults}
+              isSearching={isSearching}
+              isShortMovieChecked={isShortMovieChecked}
+              searchResults={searchResults}
+              searchQuery={searchQuery} // Передаем searchQuery как пропс
              /> }
         />
 
