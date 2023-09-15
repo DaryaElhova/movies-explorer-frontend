@@ -31,7 +31,9 @@ export default function SavedMovies({
         <SearchForm
           onSearch={handleSearchSubmit}
           isShortMovieChecked={isShortMovieChecked}
-          setIsShortMovieChecked={setIsShortMovieChecked} />
+          setIsShortMovieChecked={setIsShortMovieChecked}
+          isSavedMoviesPage={isSavedMoviesPage}
+           />
         {isLoading ? (<Preloader />) : noResults? (<p>Ничего не найдено</p>) : (
           <MoviesCardList 
             movies={isSearching ? searchResults : savedMovies}

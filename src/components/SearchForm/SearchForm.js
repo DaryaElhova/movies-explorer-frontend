@@ -6,7 +6,10 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 export default function SearchForm({
   onSearch,
   isShortMovieChecked,
-setIsShortMovieChecked, searchQuery, setSearchQuery }) {
+  setIsShortMovieChecked,
+  searchQuery,
+  setSearchQuery,
+  isSavedMoviesPage }) {
   const searchKeywordsRef = useRef('');
 
   const handleSubmit = (e) => {
@@ -26,6 +29,13 @@ setIsShortMovieChecked, searchQuery, setSearchQuery }) {
     setSearchQuery(value); // Обновляем searchQuery в state
   };
 
+  const inputProps = isSavedMoviesPage
+    ? {} // Пустые свойства, если находимся на странице SavedMovies
+    : {
+        value: searchQuery || "",
+        onChange: handleInputChange,
+      };
+
   return (
     <section className="search">
       <form className="search__form" onSubmit={ handleSubmit } >
@@ -36,8 +46,7 @@ setIsShortMovieChecked, searchQuery, setSearchQuery }) {
             placeholder="Фильм"
             name="searchInput"
             ref={searchKeywordsRef}
-            value={searchQuery || ""}
-            onChange={handleInputChange}
+            {...inputProps}
             ></input>
           <button className="search__button" title="найти">
           </button>

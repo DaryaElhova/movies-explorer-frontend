@@ -1,25 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import Header from "../Header/Header";
 import useForm from "../../utils/hooks/useForm";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 export default function Profile({
   isLoggedIn,
   logOut,
   onUpdateUser,
-  userData,
+  //userData,
   errorMessage,
   successMessage }) {
-  const { userName, userEmail } = userData;
+  // const { userName, userEmail } = userData;
+  const currentUser = useContext(CurrentUserContext);
 
   const { form, handleChange, errors, isFormValid } = useForm({
-    name: userData.name || "",
-    email: userData.email || "",
+    name: currentUser.name || "",
+    email: currentUser.email || "",
   });
 
   useEffect(() => {
-    form.name = userData.name;
-    form.email = userData.email;
-  }, [userData]);
+    form.name = currentUser.name;
+    form.email = currentUser.email;
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,7 +40,7 @@ export default function Profile({
         name="profile__form"
         className="profile__form"
         onSubmit={ handleSubmit } >
-        <h1 className="profile__title">Привет, {userData.name}!</h1>
+        <h1 className="profile__title">Привет, {currentUser.name}!</h1>
         <div className="profile__field">
           <label className="profile__label">Имя</label>
           <input

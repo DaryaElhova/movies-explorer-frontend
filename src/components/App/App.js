@@ -28,7 +28,6 @@ function App() {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState();
-  const [userData, setUserData] = useState({});
 
   // стейсты для фильмов
   const [movies, setMovies] = useState([]);
@@ -49,6 +48,19 @@ function App() {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
+  useEffect(() => {
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      api.getUserInfo()
+      .then((res) => {
+        setCurrentUser(res)
+      })
+      .catch((err) => {
+        console.log(`Возникла ошибка, ${err}`) 
+      })
+    }
+  }, [isLoggedIn])
+
   // РEГИСТРАЦИЯ И АВТОРИЗАЦИЯ----------------
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
@@ -57,11 +69,12 @@ function App() {
       Auth.checkToken(jwt)
         .then((res) => { 
           if(res) {
-            const userData = {
-              name: res.name,
-              email: res.email
-            }
-            setUserData(userData);
+            // const userData = {
+            //   name: res.name,
+            //   email: res.email
+            // }
+            
+            //setCurrentUser(userData);
             setIsLoggedIn(true);
             navigate(location.pathname);
           }
@@ -375,7 +388,7 @@ const handleSetSavedMovies = (newSavedMovies) => {
               component={ Profile }
               logOut={ logOut }
               onUpdateUser={ handleUpdateUser}
-              userData={ userData }
+              //userData={ userData }
               errorMessage={ errorMessage }
               successMessage={ successMessage }
             />} />
