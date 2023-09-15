@@ -21,11 +21,13 @@ const formatDuration = (min) => {
   const savedMovies = JSON.parse(localStorage.getItem('savedMovies')) || [];
   // проверим, есть ли фильм в массиве сохраненных фильмов
   const isSaved = savedMovies ? savedMovies.some((i) => i.movieId === movie.id) : false;
+  console.log(savedMovies)
   // ищем элемент у которого movieId = id. Если он есть, вернем элемент
   //и будем удалять по movieSaved._id
   const movieSaved = savedMovies ? savedMovies.find((i) => i.movieId === movie.id) : null;
 
   const savedButtonClassName = (`movies-card__save ${isSaved ? 'movies-card__save_active' : ''}`)
+  console.log(isSaved);
 
   return (
     <article className="movies-card">

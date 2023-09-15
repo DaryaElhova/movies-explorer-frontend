@@ -3,6 +3,7 @@ import Header from "../Header/Header";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
+import { useState, useEffect } from "react";
 
 export default function SavedMovies({ 
   isLoggedIn,
@@ -20,9 +21,19 @@ export default function SavedMovies({
   isShortMovieChecked,
   setIsShortMovieChecked
 }) {
+  const [currentSearchResults, setCurrentSearchResults] = useState([]);
+
   const handleSearchSubmit = (searchKeywords, isShortFilm) => {
     onSearch(searchKeywords, isShortFilm);
   }
+
+  useEffect(() => {
+    if (isSearching) {
+      setCurrentSearchResults(searchResults);
+    } else {
+      setCurrentSearchResults(savedMovies);
+    }
+  }, [isSearching, searchResults, savedMovies]);
 
   return(
     <>
@@ -36,7 +47,7 @@ export default function SavedMovies({
            />
         {isLoading ? (<Preloader />) : noResults? (<p>Ничего не найдено</p>) : (
           <MoviesCardList 
-            movies={isSearching ? searchResults : savedMovies}
+            movies={isSearching ? currentSearchResults : savedMovies}
             onDeleteMovie={onDeleteMovie}
             visibleMovies={visibleMovies}
             isSavedMoviesPage={ isSavedMoviesPage }

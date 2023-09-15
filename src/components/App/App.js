@@ -40,6 +40,7 @@ function App() {
   const [isSearching, setIsSearching] = useState(false);
   const [isShortMovieChecked, setIsShortMovieChecked] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchExecuted, setSearchExecuted] = useState(false);//был ли поиск
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -48,6 +49,7 @@ function App() {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
+  // Устанавливаем CURRENT USER
   useEffect(() => {
     const token = localStorage.getItem('jwt');
     if (token) {
@@ -69,12 +71,6 @@ function App() {
       Auth.checkToken(jwt)
         .then((res) => { 
           if(res) {
-            // const userData = {
-            //   name: res.name,
-            //   email: res.email
-            // }
-            
-            //setCurrentUser(userData);
             setIsLoggedIn(true);
             navigate(location.pathname);
           }
@@ -148,15 +144,19 @@ function App() {
       })
   }
 
-
   // ВЫХОД ИЗ ПРОФИЛЯ
   const logOut = () => {
     localStorage.removeItem("jwt");
     localStorage.removeItem("searchQuery");
     localStorage.removeItem("isShortMovieChecked");
     localStorage.removeItem("searchResults");
+    localStorage.removeItem("movies");
     setIsLoggedIn(false);
     setCurrentUser({});
+    setMovies([]);
+    setSearchQuery('');
+    setIsShortMovieChecked(false);
+    setSearchExecuted(false)
   }
 
   // текущий маршрут
@@ -166,18 +166,19 @@ function App() {
   }, [location.pathname]);
 
   // ЗАГРУЗКА ФИЛЬМОВ + ПРОВЕРКА НА НАЛИЧИЕ В LOCALSTORAGE
-  useEffect(() => {
-    if (isLoggedIn) {
+  const loadMovies = () => {
+    if (isLoggedIn && searchExecuted) {
       const storedMovies = localStorage.getItem('movies');
       setVisibleMovies(getMoviesPerPage())
-
+  
       if(storedMovies) {
         setMovies(JSON.parse(storedMovies));
         setVisibleMovies(getMoviesPerPage());
-      } else {
+      } 
+      else {
         moviesApi.getMovies()
-          setIsLoading(true)
           .then((movies) => {
+            setIsLoading(true);
             setMovies(movies);
             localStorage.setItem('movies', JSON.stringify(movies));
             setVisibleMovies(getMoviesPerPage());
@@ -190,7 +191,11 @@ function App() {
           })
       }
     }
-  }, [isLoggedIn]);
+  }
+
+  useEffect(() => {
+    loadMovies();
+  }, [searchExecuted])
 
   //ЗАГРУЗКА ФИЛЬМОВ НА РОУТ /SAVED-MOVIES------------
   useEffect(() => {
@@ -269,18 +274,37 @@ const handleSetSavedMovies = (newSavedMovies) => {
   };
 
   //УДАЛЕНИЕ ФИЛЬМА ------------------------
+
   const handleDeleteMovie = (id) => {
+    // Отправить запрос на удаление на сервер
     api.deleteMovie(id)
-    .then((res) => {
-      const updatedSavedMovies = savedMovies.filter((movie) => movie._id !== id);
-      setSavedMovies(updatedSavedMovies);
-      // обновить localStorage
-      localStorage.setItem('savedMovies', JSON.stringify(updatedSavedMovies));
-    })
-    .catch((err) => {
-      console.log(`Произошла ошибка ${err}`)
-    });
+      .then((res) => {
+            // Удаление фильма из состояния savedMovies
+    const updatedSavedMovies = savedMovies.filter((movie) => movie._id !== id);
+    setSavedMovies(updatedSavedMovies);
+  
+    // Удаление фильма из состояния searchResults
+    const updatedSearchResults = searchResults.filter((movie) => movie._id !== id);
+    setSearchResults(updatedSearchResults);
+        // Обновить localStorage только после успешного удаления на сервере
+        localStorage.setItem('savedMovies', JSON.stringify(updatedSavedMovies));
+      })
+      .catch((err) => {
+        console.log(`Произошла ошибка ${err}`);
+        // Если произошла ошибка на сервере, возможно, вам нужно вернуть фильм в savedMovies
+        // и searchResults в случае неуспешного удаления
+        const movieToRestore = savedMovies.find((movie) => movie._id === id);
+        if (movieToRestore) {
+          setSavedMovies([...savedMovies, movieToRestore]);
+        }
+  
+        const searchResultToRestore = searchResults.find((movie) => movie._id === id);
+        if (searchResultToRestore) {
+          setSearchResults([...searchResults, searchResultToRestore]);
+        }
+      });
   };
+  
 
   // ПОИСК ФИЛЬМОВ-------------------------
   const handleSearch = (searchKeywords, isShortMovieChecked) => {
@@ -304,9 +328,13 @@ const handleSetSavedMovies = (newSavedMovies) => {
       setSearchQuery(searchKeywords);
       setIsShortMovieChecked(isShortMovieChecked);
       setSearchResults(filteredMovies);
+      console.log(searchResults)
       setIsLoading(false);
       setNoResults(filteredMovies.length === 0);
+      console.log(noResults)
+
     }
+    setSearchExecuted(true);
     setIsSearching(true);
   }
 
@@ -351,7 +379,8 @@ const handleSetSavedMovies = (newSavedMovies) => {
               isSearching={isSearching}
               isShortMovieChecked={isShortMovieChecked}
               searchResults={searchResults}
-              searchQuery={searchQuery} // Передаем searchQuery как пропс
+              searchQuery={searchQuery}
+              searchExecuted={searchExecuted}
              /> }
         />
 
@@ -388,7 +417,6 @@ const handleSetSavedMovies = (newSavedMovies) => {
               component={ Profile }
               logOut={ logOut }
               onUpdateUser={ handleUpdateUser}
-              //userData={ userData }
               errorMessage={ errorMessage }
               successMessage={ successMessage }
             />} />
