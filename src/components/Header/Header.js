@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 export default function Header(props) {
-  console.log(props.isLoggedIn)
   const location = useLocation();
   const headerClassName = `header ${props.isLoggedIn === false ? 'header_unauthorized' : ''} ${props.isLoggedIn && location.pathname === '/' ? 'header_blue' : '' }`;
 

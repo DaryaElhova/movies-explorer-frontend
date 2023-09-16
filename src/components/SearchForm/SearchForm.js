@@ -10,6 +10,7 @@ export default function SearchForm({
   searchQuery,
   setSearchQuery,
   isSavedMoviesPage }) {
+
   const searchKeywordsRef = useRef('');
 
   const handleSubmit = (e) => {
@@ -48,7 +49,7 @@ export default function SearchForm({
             ref={searchKeywordsRef}
             {...inputProps}
             ></input>
-          <button className="search__button" title="найти">
+          <button className="search__button" title="найти" type="submit">
           </button>
         </div>
       </form>

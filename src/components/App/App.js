@@ -44,7 +44,7 @@ function App() {
   const [searchExecuted, setSearchExecuted] = useState(false);//был ли поиск
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [noResults, setNoResults] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -112,9 +112,15 @@ function App() {
   const loginUser = ({ email, password }) => {
     Auth.authorization(email, password)
       .then((res) => {
-        setIsLoggedIn(true);
-        localStorage.setItem("jwt", res.token);
-        navigate("/movies", { replace: true });
+        if (res) {
+          console.log(res);
+          setIsLoggedIn(true);
+          localStorage.setItem("jwt", res.token);
+          navigate("/movies", { replace: true });
+        } else {
+          // Handle the case where res is undefined or unexpected
+          setErrorMessage("Вы ввели неправильный логин или пароль.");
+        }
       })
       .catch(() => {
         if ({"message":"Неправильная почта или пароль"}) {
@@ -166,37 +172,9 @@ function App() {
     setIsSavedMoviesPage(location.pathname === '/saved-movies');
   }, [location.pathname]);
 
-  // ЗАГРУЗКА ФИЛЬМОВ + ПРОВЕРКА НА НАЛИЧИЕ В LOCALSTORAGE
-  const loadMovies = () => {
-    if (isLoggedIn && searchExecuted) {
-      const storedMovies = localStorage.getItem('movies');
-      setVisibleMovies(getMoviesPerPage())
-  
-      if(storedMovies) {
-        setMovies(JSON.parse(storedMovies));
-        setVisibleMovies(getMoviesPerPage());
-      } 
-      else {
-        moviesApi.getMovies()
-          .then((movies) => {
-            setIsLoading(true);
-            setMovies(movies);
-            localStorage.setItem('movies', JSON.stringify(movies));
-            setVisibleMovies(getMoviesPerPage());
-          })
-          .catch((err) => {
-            console.log(`Произошла ошибка ${err}`)
-          })
-          .finally(() => {
-            setIsLoading(false);
-          })
-      }
-    }
-  }
-
-  useEffect(() => {
-    loadMovies();
-  }, [searchExecuted])
+  // useEffect(() => {
+  //   loadMovies();
+  // }, [searchExecuted])
 
   //ЗАГРУЗКА ФИЛЬМОВ НА РОУТ /SAVED-MOVIES------------
   useEffect(() => {
@@ -275,30 +253,25 @@ const handleSetSavedMovies = (newSavedMovies) => {
   };
 
   //УДАЛЕНИЕ ФИЛЬМА ------------------------
-
   const handleDeleteMovie = (id) => {
-    // Отправить запрос на удаление на сервер
     api.deleteMovie(id)
       .then((res) => {
-            // Удаление фильма из состояния savedMovies
-    const updatedSavedMovies = savedMovies.filter((movie) => movie._id !== id);
-    setSavedMovies(updatedSavedMovies);
-  
-    // Удаление фильма из состояния searchResults
-    const updatedSearchResults = searchResults.filter((movie) => movie._id !== id);
-    setSearchResults(updatedSearchResults);
+        // Удаление фильма из состояния savedMovies
+        const updatedSavedMovies = savedMovies.filter((movie) => movie._id !== id);
+        setSavedMovies(updatedSavedMovies);
+      
+        // Удаление фильма из состояния searchResults
+        const updatedSearchResults = searchResults.filter((movie) => movie._id !== id);
+        setSearchResults(updatedSearchResults);
         // Обновить localStorage только после успешного удаления на сервере
         localStorage.setItem('savedMovies', JSON.stringify(updatedSavedMovies));
       })
       .catch((err) => {
         console.log(`Произошла ошибка ${err}`);
-        // Если произошла ошибка на сервере, возможно, вам нужно вернуть фильм в savedMovies
-        // и searchResults в случае неуспешного удаления
         const movieToRestore = savedMovies.find((movie) => movie._id === id);
         if (movieToRestore) {
           setSavedMovies([...savedMovies, movieToRestore]);
         }
-  
         const searchResultToRestore = searchResults.find((movie) => movie._id === id);
         if (searchResultToRestore) {
           setSearchResults([...searchResults, searchResultToRestore]);
@@ -306,39 +279,75 @@ const handleSetSavedMovies = (newSavedMovies) => {
       });
   };
   
-
-  // ПОИСК ФИЛЬМОВ-------------------------
-  const handleSearch = (searchKeywords, isShortMovieChecked) => {
-    setIsLoading(true);
-    setNoResults(false);
-
-    if (isSavedMoviesPage) {
-      const filteredSavedMovies = FilterMovies(savedMovies, searchKeywords, isShortMovieChecked);
+    // ЗАГРУЗКА ФИЛЬМОВ + ПРОВЕРКА НА НАЛИЧИЕ В LOCALSTORAGE
+    const loadMovies = () => {
+      return new Promise((resolve, reject) => {
+        if (isLoggedIn && searchExecuted) {
+          const storedMovies = localStorage.getItem('movies');
+          setVisibleMovies(getMoviesPerPage())
       
-      setSearchResults(filteredSavedMovies);
-      setIsLoading(false);
-      setNoResults(filteredSavedMovies.length === 0);
-    } else {
-      const filteredMovies = FilterMovies(movies, searchKeywords, isShortMovieChecked);
-
-        // Сохранение данных в localStorage
-      localStorage.setItem('searchQuery', searchKeywords);
-      localStorage.setItem('isShortMovieChecked', isShortMovieChecked);
-      localStorage.setItem('searchResults', JSON.stringify(filteredMovies));
-
-      setSearchQuery(searchKeywords);
-      setIsShortMovieChecked(isShortMovieChecked);
-      setSearchResults(filteredMovies);
-      console.log(searchResults)
-      setIsLoading(false);
-      setNoResults(filteredMovies.length === 0);
-      console.log(noResults)
-
+          if(storedMovies) {
+            const parsedMovies = JSON.parse(storedMovies);
+            setMovies(parsedMovies);
+            setVisibleMovies(getMoviesPerPage());
+            resolve(parsedMovies);
+          }
+          else {
+            moviesApi.getMovies()
+              .then((movies) => {
+                setIsLoading(true);
+                setMovies(movies);
+                localStorage.setItem('movies', JSON.stringify(movies));
+                setVisibleMovies(getMoviesPerPage());
+                resolve(movies);
+              })
+              .catch((err) => {
+                console.log(`Произошла ошибка ${err}`)
+                reject(err); 
+              })
+              .finally(() => {
+                setIsLoading(false);
+              })
+          }
+        }
+      })
     }
-    setSearchExecuted(true);
-    setIsSearching(true);
-  }
 
+    //ПОИСК ФИЛЬМА-----------------------------------------
+    const handleSearch = (searchKeywords, isShortMovieChecked) => {
+      setNoResults(false);
+      if (isSavedMoviesPage) {
+        const filteredSavedMovies = FilterMovies(savedMovies, searchKeywords, isShortMovieChecked);
+        
+        setSearchResults(filteredSavedMovies);
+        setNoResults(filteredSavedMovies.length === 0);
+      } else {
+        //загружаю+фильтрую обработанные фильмы
+        loadMovies()
+          .then((loadedMovies) => {
+            const filteredMovies = FilterMovies(loadedMovies, searchKeywords, isShortMovieChecked);
+  
+          // Сохранение данных в localStorage
+          localStorage.setItem('searchQuery', searchKeywords);
+          localStorage.setItem('isShortMovieChecked', isShortMovieChecked);
+          localStorage.setItem('searchResults', JSON.stringify(filteredMovies));
+    
+          setSearchQuery(searchKeywords);
+          setIsShortMovieChecked(isShortMovieChecked);
+          setSearchResults(filteredMovies);
+          console.log(searchResults)
+          setIsLoading(false);
+          setNoResults(filteredMovies.length === 0);
+          console.log(noResults)
+            // Обработка загруженных фильмов
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+      setSearchExecuted(true);
+      setIsSearching(true);
+    }
 
   function handleMenuOpen() {
     setIsMenuOpen(true);
@@ -354,7 +363,7 @@ const handleSetSavedMovies = (newSavedMovies) => {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
       <Routes>
-        <Route path="/" element={<Main />}/>
+        <Route path="/" element={<Main isLoggedIn={isLoggedIn}/>}/>
         <Route 
           path="/movies"
           element={
@@ -424,10 +433,10 @@ const handleSetSavedMovies = (newSavedMovies) => {
 
           <Route
             path="/signin"
-            element={isLoggedIn ? <Navigate to="/" /> : <Login loginUser={loginUser} errorMessage={errorMessage} />} />
+            element={isLoggedIn ? <Navigate to="/" /> : <Login loginUser={loginUser} errorMessage={errorMessage} setErrorMessage={setErrorMessage}/>} />
           <Route
             path="/signup"
-            element={isLoggedIn ? <Navigate to="/" /> : <Register registerUser={registerUser} errorMessage={errorMessage} />} />
+            element={isLoggedIn ? <Navigate to="/" /> : <Register registerUser={registerUser} errorMessage={errorMessage} setErrorMessage={setErrorMessage}/>} />
           <Route
             path="*"
             element={<NotFound />} />

@@ -1,12 +1,18 @@
 import React from "react";
 import Form from "../Form/Form";
 import useForm from "../../utils/hooks/useForm";
+import { useEffect } from "react";
 
-export default function Login ({ loginUser, errorMessage }) {
+export default function Login ({ loginUser, errorMessage, setErrorMessage }) {
   const { form, handleChange, errors, isFormValid } = useForm({
     email: "",
     password: "",
   })
+
+  useEffect(()=> {
+    setErrorMessage("");
+  }, [])
+
 
   const handleSubmit = (evt) => {
     evt.preventDefault();

@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useForm from "../../utils/hooks/useForm";
 import Form from "../Form/Form";
 
-export default function Register({ registerUser, errorMessage}) {
+export default function Register({ registerUser, errorMessage, setErrorMessage}) {
+  useEffect(()=> {
+    setErrorMessage("");
+  }, [])
 
   const { form, handleChange, errors, isFormValid } = useForm({
     name: "",
