@@ -51,7 +51,8 @@ export default function SavedMovies({
             onDeleteMovie={onDeleteMovie}
             visibleMovies={visibleMovies}
             isSavedMoviesPage={ isSavedMoviesPage }
-            onShowMoreClick={onShowMoreClick}/>
+            onShowMoreClick={onShowMoreClick}
+            />
         )}
       </main>
     </>
