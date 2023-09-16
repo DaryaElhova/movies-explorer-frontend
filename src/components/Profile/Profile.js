@@ -7,11 +7,12 @@ export default function Profile({
   isLoggedIn,
   logOut,
   onUpdateUser,
-  //userData,
   errorMessage,
   successMessage }) {
-  // const { userName, userEmail } = userData;
   const currentUser = useContext(CurrentUserContext);
+
+  //Отслеживаю изменение данных в форме
+
 
   const { form, handleChange, errors, isFormValid } = useForm({
     name: currentUser.name || "",

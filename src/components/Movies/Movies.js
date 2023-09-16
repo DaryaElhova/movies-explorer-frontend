@@ -26,7 +26,7 @@ export default function Movies({
   searchQuery,searchExecuted
 
   }) {
-    console.log(searchResults)
+
     const [restoredData, setRestoredData] = useState(false);
 
     useEffect(() => {
@@ -34,6 +34,7 @@ export default function Movies({
       const savedSearchQuery = localStorage.getItem('searchQuery');
       const savedIsShortMovieChecked = localStorage.getItem('isShortMovieChecked');
       const savedSearchResults = JSON.parse(localStorage.getItem('searchResults'));
+
   
       if (savedSearchQuery  && savedSearchResults) {
         setSearchQuery(savedSearchQuery);
@@ -48,6 +49,7 @@ export default function Movies({
       } else {
         setIsShortMovieChecked(false);
       }
+
     }, [isSearching]);
 
   const handleSearchSubmit = (searchKeywords, isShortFilm) => {
@@ -59,6 +61,8 @@ export default function Movies({
       localStorage.setItem('isShortMovieChecked', isShortFilm.toString());
     }
   };
+
+  console.log("Search Results:", searchResults);
 
   return (
     <>
