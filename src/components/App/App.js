@@ -23,6 +23,16 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import { FilterMovies } from '../../utils/FilterMovies';
 
+import {
+  SHOW_MORE_LAPTOP,
+  SHOW_MORE_MOBILE,
+  WINDOW_TABLET,
+  WINDOW_MOBILE,
+  FILMS_LAPTOP,
+  FILMS_TABLET,
+  FILMS_MOBILE,
+} from '../../utils/constants';
+
 function App() {
 
   const navigate = useNavigate();
@@ -190,10 +200,10 @@ function App() {
   const getAdditionalMovies = () => {
     const windowWidth = window.innerWidth;
 
-    if (windowWidth >= 769) {
-        return 3; 
+    if (windowWidth > WINDOW_TABLET) {
+        return SHOW_MORE_LAPTOP; 
       } else {
-        return 2;
+        return SHOW_MORE_MOBILE;
       }
   };
 
@@ -219,12 +229,12 @@ function App() {
 
   // ОПРЕДЕЛЕНИЕ КОЛИЧЕСТВА ОТОБРАЖАЕМЫХ ФИЛЬМОВ---------------
   const getMoviesPerPage = () => {
-    if (window.innerWidth > 768) {
-      return 12;
-    } else if (window.innerWidth > 480) {
-    return 8;
-    } else if (window.innerWidth <= 480){
-    return 5;
+    if (window.innerWidth > WINDOW_TABLET) {
+      return FILMS_LAPTOP;
+    } else if (window.innerWidth > WINDOW_MOBILE) {
+    return FILMS_TABLET;
+    } else if (window.innerWidth <= WINDOW_MOBILE){
+    return FILMS_MOBILE;
   }
 };
 

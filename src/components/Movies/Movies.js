@@ -34,7 +34,7 @@ export default function Movies({
       const savedSearchQuery = localStorage.getItem('searchQuery');
       const savedIsShortMovieChecked = localStorage.getItem('isShortMovieChecked');
       const savedSearchResults = JSON.parse(localStorage.getItem('searchResults'));
-
+      console.log(savedSearchQuery);
   
       if (savedSearchQuery  && savedSearchResults) {
         setSearchQuery(savedSearchQuery);
