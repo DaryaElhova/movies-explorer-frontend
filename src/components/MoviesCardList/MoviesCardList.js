@@ -12,10 +12,11 @@ export default function MoviesCardList({
   onSaveMovie,
   onDeleteMovie,
   savedMovies,
-  isLoading,onShowMoreClick
+  isLoading,
+  onShowMoreClick,
+  isSavedMoviesPage
  }) {
   const location = useLocation();
-
   const sectionClassName = (`${ location.pathname !== '/saved-movies' ? "movies-card-list__container" : "saved-movies__container"}`);
 
   return(
@@ -37,7 +38,7 @@ export default function MoviesCardList({
             />)
       })}
       </div>
-      <div className="movies-card-list__show-more">
+      {!isSavedMoviesPage ? (<div className="movies-card-list__show-more">
       {isLoading ? (
     <Preloader />
       ) : (
@@ -47,7 +48,7 @@ export default function MoviesCardList({
  />
       )
     )}
-      </div>
+      </div>) : ''}
     </section>
 
   )

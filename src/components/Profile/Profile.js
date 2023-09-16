@@ -7,10 +7,8 @@ export default function Profile({
   isLoggedIn,
   logOut,
   onUpdateUser,
-  //userData,
   errorMessage,
   successMessage }) {
-  // const { userName, userEmail } = userData;
   const currentUser = useContext(CurrentUserContext);
 
   const { form, handleChange, errors, isFormValid } = useForm({

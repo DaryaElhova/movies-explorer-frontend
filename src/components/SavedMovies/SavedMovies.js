@@ -13,11 +13,9 @@ export default function SavedMovies({
   onDeleteMovie,
   isSearching,
   searchResults,
-  visibleMovies,
   isSavedMoviesPage,
   isLoading,
   noResults,
-  onShowMoreClick,
   isShortMovieChecked,
   setIsShortMovieChecked
 }) {
@@ -49,9 +47,8 @@ export default function SavedMovies({
           <MoviesCardList 
             movies={isSearching ? currentSearchResults : savedMovies}
             onDeleteMovie={onDeleteMovie}
-            visibleMovies={visibleMovies}
             isSavedMoviesPage={ isSavedMoviesPage }
-            onShowMoreClick={onShowMoreClick}/>
+            />
         )}
       </main>
     </>

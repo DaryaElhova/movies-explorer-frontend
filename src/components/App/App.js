@@ -172,10 +172,6 @@ function App() {
     setIsSavedMoviesPage(location.pathname === '/saved-movies');
   }, [location.pathname]);
 
-  // useEffect(() => {
-  //   loadMovies();
-  // }, [searchExecuted])
-
   //ЗАГРУЗКА ФИЛЬМОВ НА РОУТ /SAVED-MOVIES------------
   useEffect(() => {
     if (isSavedMoviesPage) {
@@ -225,9 +221,9 @@ function App() {
   const getMoviesPerPage = () => {
     if (window.innerWidth > 768) {
       return 12;
-    } else if (window.innerWidth > 320) {
+    } else if (window.innerWidth > 480) {
     return 8;
-    } else {
+    } else if (window.innerWidth <= 480){
     return 5;
   }
 };
@@ -292,23 +288,24 @@ const handleSetSavedMovies = (newSavedMovies) => {
             setVisibleMovies(getMoviesPerPage());
             resolve(parsedMovies);
           }
-          else {
-            moviesApi.getMovies()
-              .then((movies) => {
-                setIsLoading(true);
-                setMovies(movies);
-                localStorage.setItem('movies', JSON.stringify(movies));
-                setVisibleMovies(getMoviesPerPage());
-                resolve(movies);
-              })
-              .catch((err) => {
-                console.log(`Произошла ошибка ${err}`)
-                reject(err); 
-              })
-              .finally(() => {
-                setIsLoading(false);
-              })
-          }
+
+        }
+        else {
+          moviesApi.getMovies()
+            .then((movies) => {
+              setIsLoading(false);
+              setMovies(movies);
+              localStorage.setItem('movies', JSON.stringify(movies));
+              setVisibleMovies(getMoviesPerPage());
+              resolve(movies);
+            })
+            .catch((err) => {
+              console.log(`Произошла ошибка ${err}`)
+              reject(err); 
+            })
+            .finally(() => {
+              setIsLoading(false);
+            })
         }
       })
     }
@@ -316,6 +313,7 @@ const handleSetSavedMovies = (newSavedMovies) => {
     //ПОИСК ФИЛЬМА-----------------------------------------
     const handleSearch = (searchKeywords, isShortMovieChecked) => {
       setNoResults(false);
+      setIsLoading(true)
       if (isSavedMoviesPage) {
         const filteredSavedMovies = FilterMovies(savedMovies, searchKeywords, isShortMovieChecked);
         
@@ -331,7 +329,7 @@ const handleSetSavedMovies = (newSavedMovies) => {
           localStorage.setItem('searchQuery', searchKeywords);
           localStorage.setItem('isShortMovieChecked', isShortMovieChecked);
           localStorage.setItem('searchResults', JSON.stringify(filteredMovies));
-    
+          
           setSearchQuery(searchKeywords);
           setIsShortMovieChecked(isShortMovieChecked);
           setSearchResults(filteredMovies);
