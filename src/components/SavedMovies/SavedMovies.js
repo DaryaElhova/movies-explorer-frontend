@@ -48,10 +48,6 @@ export default function SavedMovies({
             movies={isSearching ? currentSearchResults : savedMovies}
             onDeleteMovie={onDeleteMovie}
             isSavedMoviesPage={ isSavedMoviesPage }
-<<<<<<< HEAD
-            onShowMoreClick={onShowMoreClick}
-=======
->>>>>>> updateuser
             />
         )}
       </main>

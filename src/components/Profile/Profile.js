@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import Header from "../Header/Header";
 import useForm from "../../utils/hooks/useForm";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
@@ -18,6 +18,18 @@ export default function Profile({
     name: currentUser.name || "",
     email: currentUser.email || "",
   });
+
+  const [isFormChanged, setIsFormChanged] = useState(false);
+
+  const handleFormChange = () => {
+    const isNameChange = currentUser.name !== form.name;
+    const isEmailChange = currentUser.email !== form.email;
+    setIsFormChanged(isNameChange || isEmailChange);
+  }
+
+  useEffect(() => {
+    handleFormChange();
+  }, [form]);
 
   useEffect(() => {
     form.name = currentUser.name;
@@ -77,9 +89,9 @@ export default function Profile({
 
         <div className="profile__input-err">{errorMessage || successMessage}</div>
           <button
-            className={`profile__btn profile__btn-edit ${isFormValid ? '' : 'profile__btn-edit_disabled'}`}
+            className={`profile__btn profile__btn-edit ${isFormValid && isFormChanged ? '' : 'profile__btn-edit_disabled'}`}
             type="submit"
-            disabled={!isFormValid}
+            disabled={!isFormValid || !isFormChanged}
             >Редактировать</button>
           <button
             type="button"
