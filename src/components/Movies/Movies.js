@@ -23,7 +23,7 @@ export default function Movies({
   setSearchQuery,
   setSearchResults,
   setIsSearching,
-  searchQuery,searchExecuted
+  searchQuery,searchExecuted, setSearchExecuted, setVisibleMovies
 
   }) {
 
@@ -41,6 +41,8 @@ export default function Movies({
         setSearchResults(savedSearchResults);
         setIsSearching(true);
         setRestoredData(true); // Устанавливаем флаг, что данные восстановлены
+        setSearchExecuted(true);
+
       }
 
       //чтобы восстановить состояние чекбокса
@@ -62,7 +64,7 @@ export default function Movies({
     }
   };
 
-  console.log("Search Results:", searchResults);
+  console.log(visibleMovies);
 
   return (
     <>

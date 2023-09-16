@@ -313,12 +313,14 @@ const handleSetSavedMovies = (newSavedMovies) => {
     //ПОИСК ФИЛЬМА-----------------------------------------
     const handleSearch = (searchKeywords, isShortMovieChecked) => {
       setNoResults(false);
-      setIsLoading(true)
+      setIsLoading(true);
+      
       if (isSavedMoviesPage) {
         const filteredSavedMovies = FilterMovies(savedMovies, searchKeywords, isShortMovieChecked);
         
         setSearchResults(filteredSavedMovies);
         setNoResults(filteredSavedMovies.length === 0);
+        setIsLoading(false);
       } else {
         //загружаю+фильтрую обработанные фильмы
         loadMovies()
@@ -361,7 +363,7 @@ const handleSetSavedMovies = (newSavedMovies) => {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
       <Routes>
-        <Route path="/" element={<Main isLoggedIn={isLoggedIn}/>}/>
+        <Route path="/" element={<Main isLoggedIn={isLoggedIn} onOpenMenu={handleMenuOpen}/>}/>
         <Route 
           path="/movies"
           element={
@@ -389,6 +391,8 @@ const handleSetSavedMovies = (newSavedMovies) => {
               searchResults={searchResults}
               searchQuery={searchQuery}
               searchExecuted={searchExecuted}
+              setSearchExecuted={setSearchExecuted}
+              setVisibleMovies={setVisibleMovies}
              /> }
         />
 

@@ -6,10 +6,10 @@ import Techs from '../Techs/Techs';
 import AboutMe from '../AboutMe/AboutMe'
 import Portfolio from '../Portfolio/Portfolio';
 
-export default function Main({isLoggedIn}) {
+export default function Main({isLoggedIn, onOpenMenu}) {
   return(
     <>
-    <Header isLoggedIn={isLoggedIn} />
+    <Header isLoggedIn={isLoggedIn} onOpenMenu={onOpenMenu}/>
     <main>
       <Promo />
       <AboutProject />
