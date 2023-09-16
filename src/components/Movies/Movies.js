@@ -23,7 +23,7 @@ export default function Movies({
   setSearchQuery,
   setSearchResults,
   setIsSearching,
-  searchQuery,searchExecuted, setSearchExecuted, setVisibleMovies
+  searchQuery,searchExecuted, setSearchExecuted, setVisibleMovies, getMoviesPerPage
 
   }) {
 
@@ -43,6 +43,9 @@ export default function Movies({
         setRestoredData(true); // Устанавливаем флаг, что данные восстановлены
         setSearchExecuted(true);
 
+        const loadedMovies = isSearching ? savedSearchResults : movies;
+        const moviesPerPage = getMoviesPerPage();
+        setVisibleMovies(loadedMovies.length > moviesPerPage ? moviesPerPage : loadedMovies.length);
       }
 
       //чтобы восстановить состояние чекбокса

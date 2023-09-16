@@ -393,6 +393,7 @@ const handleSetSavedMovies = (newSavedMovies) => {
               searchExecuted={searchExecuted}
               setSearchExecuted={setSearchExecuted}
               setVisibleMovies={setVisibleMovies}
+              getMoviesPerPage={getMoviesPerPage}
              /> }
         />
 
