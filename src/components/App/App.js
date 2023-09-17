@@ -242,6 +242,13 @@ const handleSetSavedMovies = (newSavedMovies) => {
   setSavedMovies(newSavedMovies);
 };
 
+useEffect(() => {
+  const storedSavedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+  if (storedSavedMovies) {
+    setSavedMovies(storedSavedMovies);
+  }
+}, []);
+
   // СОХРАНЕНИЕ ФИЛЬМА-----------------
   const handleSaveMovie = (movie, isSaved, movieSaved) => {
     if (isSaved) {
@@ -323,7 +330,7 @@ const handleSetSavedMovies = (newSavedMovies) => {
     //ПОИСК ФИЛЬМА-----------------------------------------
     const handleSearch = (searchKeywords, isShortMovieChecked) => {
       setNoResults(false);
-      setIsLoading(true);
+      
       
       if (isSavedMoviesPage) {
         const filteredSavedMovies = FilterMovies(savedMovies, searchKeywords, isShortMovieChecked);
@@ -333,6 +340,7 @@ const handleSetSavedMovies = (newSavedMovies) => {
         setIsLoading(false);
       } else {
         //загружаю+фильтрую обработанные фильмы
+        setIsLoading(true);
         loadMovies()
           .then((loadedMovies) => {
             const filteredMovies = FilterMovies(loadedMovies, searchKeywords, isShortMovieChecked);
@@ -345,10 +353,10 @@ const handleSetSavedMovies = (newSavedMovies) => {
           setSearchQuery(searchKeywords);
           setIsShortMovieChecked(isShortMovieChecked);
           setSearchResults(filteredMovies);
-          console.log(searchResults)
+
           setIsLoading(false);
           setNoResults(filteredMovies.length === 0);
-          console.log(noResults)
+
             // Обработка загруженных фильмов
           })
           .catch((err) => {

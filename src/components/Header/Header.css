@@ -4,6 +4,10 @@
   margin: 0;
 }
 
+.header__link_active {
+  border-bottom: 2px solid black;
+}
+
 .header_unauthorized {
   background: #465DFF;
 }
