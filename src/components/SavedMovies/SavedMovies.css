@@ -4,6 +4,7 @@
   max-width: 1140px;
   width: 90%;
   margin: 0 auto auto auto;
+  align-items: center;
 }
 
 .saved-movies__container {
@@ -26,12 +27,13 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 480px) {
   .saved-movies {
     width: 93.75%;
   }
 
   .saved-movies__container {
     grid-template-columns: repeat(1, minmax(0, 1fr));
+    align-items: center;
   }
 }
